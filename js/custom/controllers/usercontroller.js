@@ -5,7 +5,6 @@ isRegistershow=false;
 
 function init(){
     // doAjax();
-  
     bindEvents();
     clearLocal();
 }
@@ -15,7 +14,8 @@ const clearLocal=()=>localStorage.clear();
 function bindEvents(){
    
     document.querySelector("#register_btn").addEventListener("click",addUser);
-    document.querySelector("#login_btn").addEventListener("click",doLogin);
+    //document.querySelector("#login_btn").addEventListener("click",doLogin);
+    document.querySelector("#login_btn").addEventListener("click",doVerif);
 }
 
 function addUser(){
@@ -45,13 +45,19 @@ function addUser(){
         const promise = authOperations.addUsers(userObject);
         firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
-                console.log(promise.a);
                 if(promise.a == 2){
+                    authOperations.sendVerification();
+                    //typecheck(userObject);
+                }
+                if(true==promise.i.user.emailVerified){
                     typecheck(userObject);
                 }
+                
+                //console.log(promise.a);
             }else{
                 console.log('not logged in');
             }
+            console.log(promise.i.user.emailVerified);
         });
         // location.href  = "welcome.html";
     }
@@ -71,12 +77,23 @@ function typecheck(data){
     }
 }
 
+function doVerif(){
+
+    var user = firebase.auth().currentUser;
+
+    console.log(user.emailVerified);
+    if(true==user.emailVerified){
+        location.href = "welcome.html";
+    }
+}
+
 function doLogin(){
     var userid = document.querySelector("#userid_txt").value;
     var password = document.querySelector("#password_txt").value;
     var pr =  dbOperations.getAlluser(userid);
    
     const auth = firebase.auth();
+    console.log(userid,password);
     //Sign in 
     const promise = auth.signInWithEmailAndPassword(userid,password);
     promise.catch(e => console.log(e.message));
