@@ -1,0 +1,28 @@
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.numChange{
+    background-color: #2C3E50;
+    display: inline;
+    margin-left: 0.3em;
+    border-radius: 100%;    
+    padding: 0.15em;
+    cursor: pointer;
+}
+#login{
+margin: 1em 0em;
+}
+#login_div{
+    margin: 1em 0em;
+}
+#register_div{
+    margin: 1em 0em;
+}
+#laptop{
+    padding: 0px;
+    margin: 0px;
+    height: 310px;
+}
