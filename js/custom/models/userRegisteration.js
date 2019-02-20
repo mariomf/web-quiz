@@ -1,5 +1,6 @@
 class UserRegister{
-    constructor(userid,password,phoneNo,type){
+    constructor(email,userid,password,phoneNo,type){
+        this.email=email;
         this.userid=userid;
         this.password=password;
         this.phoneNo=phoneNo;

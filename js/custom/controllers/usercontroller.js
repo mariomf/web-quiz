@@ -20,13 +20,14 @@ function bindEvents(){
 
 function addUser(){
     var type;
+    var email_reg = document.querySelector("#email_reg").value;
     var userid_reg = document.querySelector("#userid_reg").value;
     var password_reg = document.querySelector("#password_reg").value;
     var phone_no = document.querySelector("#phone_no").value;
 
     if(document.querySelector("#teacher").checked){
         type = "teacher";
-        var userObject = new UserRegister(userid_reg,password_reg,phone_no,type);
+        var userObject = new UserRegister(email_reg,userid_reg,password_reg,phone_no,type);
         dbOperations.addUsers(userObject);
         firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){
@@ -40,8 +41,8 @@ function addUser(){
     }
     else{
         type = "student";
-        var userObject = new UserRegister(userid_reg,password_reg,phone_no,type);
-        //dbOperations.addUsers(userObject);
+        var userObject = new UserRegister(email_reg,userid_reg,password_reg,phone_no,type);
+        dbOperations.addUsers(userObject);
         const promise = authOperations.addUsers(userObject);
         firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser){

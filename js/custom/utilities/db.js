@@ -1,5 +1,7 @@
 const dbOperations = {
     addUsers(userObject) {
+        /*var aux = String(userObject.userid);
+        aux = aux.charAt(0)+aux.charAt(1)+aux.charAt(2);*/
         firebase.database().ref('users/' + userObject.userid).set({
             password: userObject.password,
             phoneNo: userObject.phoneNo,

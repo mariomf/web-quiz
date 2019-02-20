@@ -3,7 +3,7 @@ const authOperations = {
 
         //Get email and pass
         const pass = userObject.password;
-        const email = userObject.userid;
+        const email = userObject.email;
         const auth = firebase.auth();
         // Sign in
         var user = firebase.auth().currentUser;
