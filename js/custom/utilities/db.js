@@ -2,13 +2,29 @@ const dbOperations = {
     addUsers(userObject) {
         /*var aux = String(userObject.userid);
         aux = aux.charAt(0)+aux.charAt(1)+aux.charAt(2);*/
-        firebase.database().ref('users/' + userObject.userid).set({
-            password: userObject.password,
-            phoneNo: userObject.phoneNo,
-            type: userObject.type,
-            userid: userObject.userid
-        });
-        alert("hello! " + userObject.userid + " You have been registered");
+        var userRef = firebase.database().ref('users/' + userObject.userid);
+
+        userRef.on('value', (snapshot) => {
+            var userObject1 = snapshot.val();
+            //console.log("userobject is ", userObject1);
+            if(userObject1==null){
+                userRef.set({
+                    password: userObject.password,
+                    phoneNo: userObject.phoneNo,
+                    type: userObject.type,
+                    userid: userObject.userid,
+                    attempts: userObject.attempts
+                });
+                //alert("hello! " + userObject.userid + " You have been registered");
+               // break;
+            }else{
+                if(userObject1.attempts!="0"){
+                    alert("elige otro User id!");
+                }
+            }
+            userObject = userObject1;
+        }); 
+        return userObject;
     },
     getAlluser(userid) {
         var pr = new Promise((resolve, reject) => {

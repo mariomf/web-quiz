@@ -13,8 +13,8 @@ const clearLocal=()=>localStorage.clear();
 
 function bindEvents(){
    
-    document.querySelector("#register_btn").addEventListener("click",addUser);
-    //document.querySelector("#login_btn").addEventListener("click",doLogin);
+    //document.querySelector("#register_btn").addEventListener("click",addUser);
+    document.querySelector("#login_btn").addEventListener("click",doLogin);
     //document.querySelector("#login_btn").addEventListener("click",doVerif);
 }
 
@@ -54,7 +54,7 @@ function addUser(){
                         //typecheck(userObject);
                     }
                     if(null!=promise.i.user.emailVerified){
-                        //typecheck(userObject);
+                        typecheck(userObject);
                     }
                     
                     //console.log(promise.a);
@@ -95,13 +95,15 @@ function doVerif(){
 function doLogin(){
     var userid = document.querySelector("#userid_txt").value;
     var password = document.querySelector("#password_txt").value;
-    var pr =  dbOperations.getAlluser(userid);
+    //var pr =  dbOperations.getAlluser(userid);
    
     const auth = firebase.auth();
     console.log(userid,password);
     //Sign in 
     const promise = auth.signInWithEmailAndPassword(userid,password);
     promise.catch(e => console.log(e.message));
+    console.log(promise.i.user.emailVerified);
+    
     /*pr.then((data)=>{
         // alert("user id is "+data.userid);
         if(data == null){
@@ -114,9 +116,9 @@ function doLogin(){
             document.querySelector("#message").innerHTML = "Invalid Password";
         }
     });*/
-    pr.catch(err=>{
+    /*pr.catch(err=>{
         alert("error found....", err);
-    });
+    });*/
     
 }
 
